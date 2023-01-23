@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <link rel="stylesheet" href="./GameStyle.css" />
+    <title>Guess My Number!</title>
+  </head>
+  <body>
+    <header>
+      <h1>Guess My Number!</h1>
+      <p class="between">(Between 1 and 20)</p>
+      <button class="btn again" onclick="reloadgame()"> Play Again</button>
+      <div class="number">?</div>
+    </header>
+    <main>
+      <section class="left">
+        <input type="number" class="guess" id="guessid" />
+        <button class="btn check" onclick="maincheck()">Check!</button>
+      </section>
+      <section class="right">
+        <p class="message" id="sc">Start guessing...</p>
+        <p class="label-score">💯 Chances: <span class="score">100</span></p>
+        <p class="label-highscore">
+          🥇 Highscore: <span class="highscore">0</span>
+        </p>
+      </section>
+    </main>
+     <script >
+      let initialnumber = 20;
+let highscore = null;
+let randomnumber = getrandom(20);
+
+function getrandom(max){
+    return Math.floor(Math.random()*max);
+}
+console.log(randomnumber);
+
+function reloadgame(){
+    document.querySelector('.number').textContent = "?"
+    document.querySelector('.message').textContent = "Start guessing..."
+    document.querySelector('.score').textContent = "20"
+    document.querySelector('.highscore').textContent = "0"
+    document.querySelector('body').style.backgroundColor = "#222"
+    document.querySelector('.guess').value = ""
+    randomnumber = getrandom(20);
+
+}
+
+function maincheck(){
+    var inputvalue = document.querySelector('#guessid').value
+
+    if(initialnumber!=0){
+        if(inputvalue>randomnumber){
+            document.querySelector('.message').textContent = "Guess Value is High"
+            initialnumber--
+            document.querySelector('.score').textContent = initialnumber
+            document.querySelector('body').style.backgroundColor = "#222"
+
+
+
+
+        }
+        else if(inputvalue<randomnumber){
+            document.querySelector('.message').textContent = "Guess Value is Low"
+            initialnumber--
+            document.querySelector('.score').textContent = initialnumber
+            document.querySelector('body').style.backgroundColor = "#222"
+        }
+        else{
+            document.querySelector('.message').textContent = "Hurray Your Value Matched"
+            initialnumber--
+            document.querySelector('.score').textContent = initialnumber
+            document.querySelector('body').style.backgroundColor = "green"
+            document.querySelector('.number').textContent = inputvalue
+            document.querySelector('.highscore').textContent = inputvalue
+
+
+
+        }
+    }
+    else{
+        document.querySelector('.message').textContent = "Game Over"
+
+    }
+
+
+
+}
+     </script>
+  </body>
+</html>
